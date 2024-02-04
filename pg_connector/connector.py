@@ -15,6 +15,5 @@ class DBConnector:
             return await connection.fetch(query, *args)
 
 
-async def create_pool(user: str, password: str, database: str, host: str):
-    return await asyncpg.create_pool(user=user, password=password,
-                                     database=database, host=host)
+async def create_pool(user: str, password: str, database: str, host: str, port: int):
+    return await asyncpg.create_pool(user=user, password=password, database=database, host=host, port=port)
