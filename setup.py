@@ -9,6 +9,7 @@ setup(
     version="0.1",
     packages=find_packages(),
     install_requires=[
-        "asyncpg==0.29.0"
+        "asyncpg==0.29.0",
+        "python-dotenv==1.0.1"
     ],
 )

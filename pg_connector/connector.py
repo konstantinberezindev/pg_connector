@@ -1,6 +1,8 @@
 import asyncpg
 from asyncpg.pool import Pool
 
+from pg_connector.settings import DBConfig
+
 
 class DBConnector:
     def __init__(self, pool: Pool):
@@ -17,3 +19,19 @@ class DBConnector:
 
 async def create_pool(user: str, password: str, database: str, host: str, port: int):
     return await asyncpg.create_pool(user=user, password=password, database=database, host=host, port=port)
+
+
+class DatabaseConnector:
+    _pool = None
+
+    @classmethod
+    async def get_connector(cls, db_config) -> DBConnector:
+        if cls._pool is None:
+            cls._pool = await create_pool(user=db_config.user, password=db_config.password,
+                                          database=db_config.database, host=db_config.host, port=db_config.port)
+        return DBConnector(pool=cls._pool)
+
+
+async def get_database_connector() -> DBConnector:
+    db_config = DBConfig()
+    return await DatabaseConnector.get_connector(db_config)
