@@ -6,11 +6,11 @@ class DBConnector:
     def __init__(self, pool: Pool):
         self.pool = pool
 
-    async def execute(self, query: str, *args):
+    async def execute_query(self, query: str, *args):
         async with self.pool.acquire() as connection:
             return await connection.execute(query, *args)
 
-    async def fetch(self, query: str, *args):
+    async def fetch_data(self, query: str, *args):
         async with self.pool.acquire() as connection:
             return await connection.fetch(query, *args)
 
